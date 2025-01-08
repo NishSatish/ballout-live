@@ -1,5 +1,5 @@
 {
-  "name": "backend/gateway",
+  "name": "gateway",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/backend/gateway/src",
   "projectType": "application",
@@ -9,40 +9,29 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "webpack-cli build",
-        "args": [
-          "node-env=production"
-        ]
+        "args": ["node-env=production"]
       },
       "configurations": {
         "development": {
-          "args": [
-            "node-env=development"
-          ]
+          "args": ["node-env=development"]
         }
       }
     },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "options": {
-        "buildTarget": "backend/gateway:build",
+        "buildTarget": "gateway:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
         "development": {
-          "buildTarget": "backend/gateway:build:development"
+          "buildTarget": "gateway:build:development"
         },
         "production": {
-          "buildTarget": "backend/gateway:build:production"
+          "buildTarget": "gateway:build:production"
         }
-      }
-    },
-    "test": {
-      "options": {
-        "passWithNoTests": true
       }
     }
   }
