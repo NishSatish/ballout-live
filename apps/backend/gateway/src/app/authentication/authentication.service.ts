@@ -7,10 +7,10 @@ export class AuthenticationService {
   private authenticationClient: ClientProxy;
 
   constructor() {
-    this.authenticationClient = ClientProxyFactory.create(MicroServiceTransports.authenticationTransport as ClientOptions)
+    this.authenticationClient = ClientProxyFactory.create(MicroServiceTransports.authenticationTransport.nats as ClientOptions)
   }
 
   getToken() {
-    return this.authenticationClient.send(MessagePatterns, {})
+    return this.authenticationClient.send(MessagePatterns.authentication.getToken, {})
   }
 }

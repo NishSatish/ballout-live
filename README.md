@@ -39,7 +39,10 @@ cd ballout-live
 npm install
 ```
 
-### 2. Serve and Preview Apps
+### 3. Install and start nats-server
+This is while working on the backend, for the microservices to communicate
+
+### 4. Serve and Preview Apps
 First get the list of apps in the monorepo
 ```bash
 npx nx show projects

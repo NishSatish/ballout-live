@@ -6,9 +6,11 @@ export const MicroServiceTransports = {
     nats: {
       transport: Transport.NATS,
       options: {
-        servers: [configuration().NATS_SERVER],
+        servers: ['nats://localhost:4222'],
         queue: 'authentication_queue',
-        retryAttempts: 5,
+        retryAttempts: 10,
+        retryDelay: 3000,
+        maxReconnectAttempts: -1,
         waitOnFirstConnect: true
       }
     }
