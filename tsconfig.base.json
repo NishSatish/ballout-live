@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@ballout-app/*": ["apps/frontend/ballout-app/*"],
-      "@ballout/*": ["/"]
+      "@ballout/libs/*": ["libs/*"],
+      "@config": ["config/configuration.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

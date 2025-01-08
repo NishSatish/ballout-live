@@ -1,0 +1,9 @@
+{
+  "name": "msvc-transports/msvc-transports",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/commons/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project msvc-transports/msvc-transports --web",
+  "targets": {}
+}

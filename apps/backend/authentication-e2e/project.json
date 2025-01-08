@@ -1,0 +1,17 @@
+{
+  "name": "authentication-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "implicitDependencies": ["authentication"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "options": {
+        "jestConfig": "apps/backend/authentication-e2e/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "dependsOn": ["authentication:build"]
+    }
+  }
+}
