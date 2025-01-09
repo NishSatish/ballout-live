@@ -17,6 +17,7 @@
     "paths": {
       "@ballout-app/*": ["apps/frontend/ballout-app/*"],
       "@ballout/libs/*": ["libs/*"],
+      "@ballout/role-policies": ["libs/role-policies/src/index.ts"],
       "@config": ["config/configuration.ts"]
     }
   },

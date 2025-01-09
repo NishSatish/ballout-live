@@ -1,0 +1,9 @@
+{
+  "name": "role-policies",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/role-policies/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project role-policies --web",
+  "targets": {}
+}
