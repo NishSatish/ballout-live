@@ -1,15 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Req } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
-import { CheckPermissions } from '../utils/decorators/permission.decorator';
-import { OrganizationAction } from '@ballout/libs/role-policies/src';
+import { CreateUserDto } from '@ballout/libs/commons/src';
 
-@Controller('authentication')
+@Controller('auth')
 export class AuthenticationController {
   constructor(private authService: AuthenticationService) {}
   @Get('login')
-  @CheckPermissions({action: OrganizationAction.CreateOrganization, resource: 'Organization'})
   login() {
-    console.log("step1");
     return  this.authService.getToken();
   }
+
+  @Post('signup')
+  signup(@Req() req: Request) {
+    console.log('step1');
+    return this.authService.createUser(req.body as unknown as CreateUserDto);
+  }
+
 }

@@ -1,17 +1,34 @@
 import { Transport } from '@nestjs/microservices';
 import configuration from '@config';
 
+const baseNatsConfig = {
+  transport: Transport.NATS,
+  options: {
+    servers: [configuration().NATS_SERVER],
+    retryAttempts: 10,
+    retryDelay: 3000,
+    maxReconnectAttempts: -1,
+    waitOnFirstConnect: true
+  }
+}
+
 export const MicroServiceTransports = {
   authenticationTransport: {
     nats: {
-      transport: Transport.NATS,
+      ...baseNatsConfig,
       options: {
-        servers: ['nats://localhost:4222'],
-        queue: 'authentication_queue',
-        retryAttempts: 10,
-        retryDelay: 3000,
-        maxReconnectAttempts: -1,
-        waitOnFirstConnect: true
+        ...baseNatsConfig.options,
+        queue: 'authentication_queue'
+      }
+    }
+  },
+
+  usersTransport: {
+    nats: {
+      ...baseNatsConfig,
+      options: {
+        ...baseNatsConfig.options,
+        queue: 'users_queue'
       }
     }
   }
