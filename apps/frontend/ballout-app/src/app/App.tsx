@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React, { useRef, useState } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
-import { Navbar } from './components/Navbar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from '@ballout-app/src/app/screens/Home';
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,7 +13,6 @@ export const App = () => {
 
   return (
     <NavigationContainer>
-      <Navbar />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
