@@ -11,4 +11,9 @@ export class AppController {
   async createUser(data: CreateUserDto) {
     return this.appService.saveUserToDB(data);
   }
+
+  @MessagePattern(MessagePatterns.authentication.loginUser)
+  async loginUser(data: { email: string, password: string }) {
+    return this.appService.loginUser(data);
+  }
 }

@@ -13,9 +13,9 @@ export class PermissionGuard implements CanActivate {
     // Get metadata set by the decorator you need to create
     const action = this.reflector.get<Action>('Action', context.getHandler());
     const resource = this.reflector.get<Resource>('Resource', context.getHandler());
-    const tester = 'MatchOperator'
+    const role = context.switchToHttp().getRequest().userRole!;
 
-    if (!this.rolePolicyService.canPerformAction(tester, action, resource)) {
+    if (!this.rolePolicyService.canPerformAction(role, action, resource)) {
       Logger.error('No permission to perform ' + action +  ' for this user');
       return false;
     }

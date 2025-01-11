@@ -11,7 +11,7 @@ export class Organization {
   @Prop()
   address: string;
 
-  @Prop()
+  @Prop({ type: String })
   type: Establishment;
 
   @Prop({ type:
