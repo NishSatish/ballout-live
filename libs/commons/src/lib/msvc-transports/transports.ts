@@ -31,5 +31,15 @@ export const MicroServiceTransports = {
         queue: 'users_queue'
       }
     }
+  },
+
+  organizationsTransport: {
+    nats: {
+      ...baseNatsConfig,
+      options: {
+        ...baseNatsConfig.options,
+        queue: 'organizations_queue'
+      }
+    }
   }
 }

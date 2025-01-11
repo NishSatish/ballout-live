@@ -1,8 +1,7 @@
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 import { HydratedDocument, mongo, Schema as mongoose } from 'mongoose';
 import { Organization } from './Organization.schema';
-
-const ROLES = ['OrganizationAdmin', 'MatchOperator'];
+import { ROLES } from '@ballout/role-policies';
 
 @Schema()
 export class User {

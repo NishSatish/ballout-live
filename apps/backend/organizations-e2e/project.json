@@ -1,0 +1,17 @@
+{
+  "name": "organizations-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "implicitDependencies": ["organizations"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "options": {
+        "jestConfig": "apps/backend/organizations-e2e/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "dependsOn": ["organizations:build"]
+    }
+  }
+}

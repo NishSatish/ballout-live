@@ -5,10 +5,13 @@ import { Action, MatchAction, OrganizationAction, Resource } from './actions.int
 export class RolePoliciesService {
 
   canPerformAction(role: string, action: Action, resource: Resource) {
+    if (!Object.keys(this.roles).find(availableRole => role == availableRole)) return false; // Check if role exists
     const userActions = this.roles[role][resource];
+    // Check if action is available
     if (userActions.find(userAction => action === userAction)) {
       return true;
     }
+    return false
   }
 
   private roles: Record<string, Record<Resource, Action[]>> = {
@@ -31,6 +34,13 @@ export class RolePoliciesService {
       'Match': [
         MatchAction.OperateMatch
       ]
+    },
+
+    Regular: {
+      'Organization': [
+        OrganizationAction.CreateOrganization
+      ],
+      'Match': []
     }
   }
 }

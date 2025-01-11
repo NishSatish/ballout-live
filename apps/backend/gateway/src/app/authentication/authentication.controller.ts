@@ -6,13 +6,13 @@ import { CreateUserDto } from '@ballout/libs/commons/src';
 export class AuthenticationController {
   constructor(private authService: AuthenticationService) {}
   @Get('login')
-  login() {
-    return  this.authService.getToken();
+  login(@Req() req: Request) {
+    const credentials = req.body as unknown as {email: string, password: string}
+    return this.authService.login(credentials);
   }
 
   @Post('signup')
   signup(@Req() req: Request) {
-    console.log('step1');
     return this.authService.createUser(req.body as unknown as CreateUserDto);
   }
 

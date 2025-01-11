@@ -12,3 +12,7 @@ export enum MatchAction {
 export type Action = OrganizationAction | MatchAction;
 
 export type Resource = 'Organization' | 'Match';
+
+export const ROLES = ['OrganizationAdmin', 'MatchOperator'];
+
+export type Establishment = 'edu' | 'club'; // Kind of an organization that can be created
