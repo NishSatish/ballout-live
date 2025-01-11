@@ -1,4 +1,4 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Post, Req } from '@nestjs/common';
 import { OrganizationsService } from './organizations.service';
 import { CreateOrgDto } from '@ballout/libs/commons/src/lib/dto/create-org.dto';
 import { CheckPermissions } from '../utils/decorators/permission.decorator';
@@ -9,15 +9,16 @@ export class OrganizationsController {
   constructor(private organizationsService: OrganizationsService) {
   }
 
-  @Get('create')
-  createOrgHandler(@Req() req: Request) {
+  @Post('create')
+  @CheckPermissions({resource: 'Organization', action: OrganizationAction.CreateOrganization})
+  createOrgHandler(@Req() req: any) {
+    console.log(req.user);
     const orgData = req.body as unknown as CreateOrgDto;
-    return this.organizationsService.dispatchCreateOrganization(orgData);
+    return this.organizationsService.dispatchCreateOrganization(orgData, req!.user as string);
   }
 
-  @Get('testPewrms')
-  @CheckPermissions({resource: 'Organization', action: OrganizationAction.CreateOrganization})
-  testePerms() {
-    return 'vanakkam'
+  @Get('get')
+  testePerms(@Req() req: Request) {
+    return this.organizationsService.showAll();
   }
 }

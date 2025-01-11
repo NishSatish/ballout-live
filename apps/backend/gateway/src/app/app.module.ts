@@ -7,16 +7,22 @@ import { RolePoliciesService } from '@ballout/libs/role-policies/src/lib/role-po
 import { RolePoliciesModule } from '@ballout/role-policies';
 import { AuthGuard } from './utils/guards/auth.guard';
 import { PermissionGuard } from './utils/guards/permission.guard';
-import { JwtService } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     RolePoliciesModule,
     AuthenticationModule,
-    OrganizationsModule ],
+    OrganizationsModule,
+    ConfigModule.forRoot({
+      isGlobal: true
+    })
+  ],
   controllers: [AppController],
   providers: [
     AppService,
+    ConfigService,
     JwtService,
     RolePoliciesService,
     AuthGuard,

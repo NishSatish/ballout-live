@@ -8,10 +8,15 @@ export class OrganizationsService {
   private OrganizationsClient: ClientProxy;
 
   constructor() {
-    this.OrganizationsClient = ClientProxyFactory.create(MicroServiceTransports.organizationsTransport.nats as ClientOptions)
+    this.OrganizationsClient
+      = ClientProxyFactory.create(MicroServiceTransports.organizationsTransport.nats as ClientOptions)
   }
 
-  dispatchCreateOrganization(org: CreateOrgDto) {
-    this.OrganizationsClient.send(MessagePatterns.organizations.createOrganization, org)
+  dispatchCreateOrganization(org: CreateOrgDto, user: string) {
+    return this.OrganizationsClient.send(MessagePatterns.organizations.createOrganization, { org, user })
+  }
+
+  showAll() {
+    return this.OrganizationsClient.send(MessagePatterns.organizations.getOrganizations, {})
   }
 }

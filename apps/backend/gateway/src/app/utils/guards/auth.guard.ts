@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const [type, token] = request.headers.authorization?.split(' ') || [];
-    if (type !== 'Bearer' || !token) throw new UnauthorizedException();
+    console.log(configuration().JWT_SECRET, configuration().MONGODB_SERVER);
     try {
       const payload: {user: string, role: string}
         = await this.jwtService.verifyAsync(token, { secret: configuration().JWT_SECRET });
@@ -18,6 +18,7 @@ export class AuthGuard implements CanActivate {
       request['user'] = payload.user;
       request['userRole'] = payload.role;
     } catch (e) {
+      console.log(e);
       throw new UnauthorizedException();
     }
     return true;

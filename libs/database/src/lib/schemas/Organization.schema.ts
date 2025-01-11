@@ -16,7 +16,7 @@ export class Organization {
 
   @Prop({ type:
       {
-        user: { type: mongoose.Types.ObjectId, ref: 'User' },
+        user: { type: mongoose.Types.ObjectId, ref: User.name },
         role: { type: String, enum: ROLES }
       }
     }
@@ -26,8 +26,8 @@ export class Organization {
     role: string
   }[];
 
-  @Prop({type: mongoose.Types.ObjectId,ref: 'User'})
-  creator: User;
+  @Prop({type: mongoose.Types.ObjectId, ref: User.name, index: true})
+  creator: mongoose.Types.ObjectId | User;
 }
 
 export type OrganizationDocument = HydratedDocument<Organization>

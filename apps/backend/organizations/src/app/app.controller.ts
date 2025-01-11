@@ -9,7 +9,13 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @MessagePattern(MessagePatterns.organizations.createOrganization)
-  createOrg(orgData: CreateOrgDto) {
-    return;
+  createOrg(orgData: { org: CreateOrgDto, user: string }) {
+    console.log(orgData);
+    return this.appService.saveOrganization(orgData);
+  }
+
+  @MessagePattern(MessagePatterns.organizations.getOrganizations)
+  getOrgs() {
+    return this.appService.getOrganizations();
   }
 }

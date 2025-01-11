@@ -10,6 +10,7 @@ export const MessagePatterns = {
   },
 
   organizations: {
-    createOrganization: 'ORGANIZATIONS_CREATE_ORGANIZATION'
+    createOrganization: 'ORGANIZATIONS_CREATE_ORGANIZATION',
+    getOrganizations: 'ORGANIZATIONS_GET_ORGANIZATIONS'
   }
 }
