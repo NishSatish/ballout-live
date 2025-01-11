@@ -6,5 +6,9 @@ export const MessagePatterns = {
 
   users: {
     getUsers: 'USERS_GET_USERS',
+  },
+
+  organizations: {
+    createOrganization: 'ORGANIZATIONS_CREATE_ORGANIZATION'
   }
 }

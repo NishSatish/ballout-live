@@ -51,7 +51,8 @@
       "exclude": [
         "apps/backend/gateway/src/app/apps/backend/authentication-e2e/**/*",
         "apps/backend/authentication-e2e/**/*",
-        "apps/backend/users-e2e/**/*"
+        "apps/backend/users-e2e/**/*",
+        "apps/backend/organizations-e2e/**/*"
       ]
     }
   ]
