@@ -10,7 +10,6 @@ export class AppController {
 
   @MessagePattern(MessagePatterns.organizations.createOrganization)
   createOrg(orgData: { org: CreateOrgDto, user: string }) {
-    console.log(orgData);
     return this.appService.saveOrganization(orgData);
   }
 
