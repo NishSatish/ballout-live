@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '@ballout/libs/database/src/lib/schemas/User.schema';
 import { Model } from 'mongoose';
@@ -30,15 +30,16 @@ export class AppService {
       const user = await this.userModel.findOne({ email: data.email });
       if (!user) throw new Error('User not found g')
       const isPwdMatch = await bcrypt.compare(data.password, user.password);
-      if (isPwdMatch) {
-        return  this.jwtService.sign({
-          user: user._id,
-          role: 'Regular' // @TODO: Separate Organization Login Will Give You A Valid Role
-        },
-          {
-            secret: configuration().JWT_SECRET
-          });
+      if (!isPwdMatch) {
+        throw new UnauthorizedException('Invalid credentials')
       }
+      return this.jwtService.sign({
+        user: user._id,
+        role: 'Regular' // @TODO: Separate Organization Login Will Give You A Valid Role
+      },
+        {
+          secret: configuration().JWT_SECRET
+        });
     } catch(e) {
       Logger.error(e);
       return e;
