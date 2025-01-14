@@ -1,6 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { ClientOptions, ClientProxy, ClientProxyFactory } from '@nestjs/microservices';
 import { CreateUserDto, MessagePatterns, MicroServiceTransports } from '@ballout/libs/commons/src';
+import { map } from 'rxjs';
 
 @Injectable()
 export class AuthenticationService {
@@ -26,15 +27,22 @@ export class AuthenticationService {
 
   login(creds: { email: string, password: string }) {
     if (!creds.email ||  !creds.password) {
-      return
+      throw new UnauthorizedException('invalid credentials');
     }
     try {
-      const res = this.authenticationClient.send(MessagePatterns.authentication.loginUser, creds)
-      Logger.log(res);
-      return res;
+      return this.authenticationClient
+        .send(MessagePatterns.authentication.loginUser, creds)
+        .pipe(
+          map(token => {
+            if (!token) return {error: 'error'};
+            return {
+              token
+            }
+          })
+        );
     } catch(e) {
       Logger.error(e);
-      return e;
+      throw new UnauthorizedException(e);
     }
   }
 }
