@@ -4,6 +4,7 @@ import { SafeAreaView, ScrollView } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from '@ballout-app/src/app/screens/Home';
 import { NavigationContainer } from '@react-navigation/native';
+import { Auth } from './screens/Auth';
 
 export const App = () => {
   const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
@@ -14,10 +15,11 @@ export const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Auth" component={Auth} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
+// <Stack.Screen name="Home" component={Home} />
 export default App;
