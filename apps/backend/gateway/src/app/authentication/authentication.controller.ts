@@ -5,7 +5,7 @@ import { CreateUserDto } from '@ballout/libs/commons/src';
 @Controller('auth')
 export class AuthenticationController {
   constructor(private authService: AuthenticationService) {}
-  @Get('login')
+  @Post('login')
   login(@Req() req: Request) {
     const credentials = req.body as unknown as {email: string, password: string}
     return this.authService.login(credentials);
