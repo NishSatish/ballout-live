@@ -1,6 +1,5 @@
-import { Image, SafeAreaView, View } from 'react-native';
+import { Image, SafeAreaView, Text, View } from 'react-native';
 import { styles } from './NavbarStyle';
-
 export const Navbar = () => {
   return (
     <SafeAreaView>

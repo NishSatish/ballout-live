@@ -1,34 +1,29 @@
-import { useDispatch } from 'react-redux';
 import { userActions, UserStore } from '../../store/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dispatch, UnknownAction } from '@reduxjs/toolkit';
+import { HttpWrapper } from '../http.util';
+import { IUser } from '../../models/user.interface';
 
 export const loginHelper = async (dispatch: Dispatch<UnknownAction>) => {
-  const SERVER_URL = 'http://localhost:3000/api/';
   try {
-    const res = await fetch(SERVER_URL + 'auth/login', {
-      body: JSON.stringify({
+    const loginResult = await HttpWrapper.post<{token: string, user: IUser}>(
+      'auth/login',
+      {
         email: 'ney@mar.com',
         password: 'Neymar@1234'
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST'
-    });
+      }
+    );
 
-    const result: {token: string, user: UserStore} = await res.json();
-
-    await AsyncStorage.setItem('session_token', result.token);
+    await AsyncStorage.setItem('session_token', loginResult.token);
 
     dispatch(userActions.loginUser({
-      firstName: result.user.firstName,
-      lastName: result.user.lastName,
-      email: result.user.email
+      firstName: loginResult.user.firstName,
+      lastName: loginResult.user.lastName,
+      email: loginResult.user.email
     }));
+    return loginResult;
   } catch (e) {
-    console.error('ERROR');
-    return e;
+    console.error('ERROR', e);
   }
 
 }
