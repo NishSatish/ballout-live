@@ -6,7 +6,7 @@ const initUser: UserStore = {
   email: undefined,
 };
 
-type UserStore = {
+export type UserStore = {
   firstName?: string,
   lastName?: string,
   email?: string
@@ -17,7 +17,12 @@ export const userSlice = createSlice({
   initialState: initUser,
   reducers: {
     loginUser : (state, action) => {
-      state = action.payload;
+      console.log('inside payload:', action);
+      state.email = action.payload.email;
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
     }
   }
 });
+
+export const userActions = userSlice.actions;

@@ -33,10 +33,11 @@ export class AuthenticationService {
       return this.authenticationClient
         .send(MessagePatterns.authentication.loginUser, creds)
         .pipe(
-          map(token => {
-            if (!token) return {error: 'error'};
+          map(loginResult => {
+            if (!loginResult) return {error: 'error'};
             return {
-              token
+              token: loginResult.token,
+              user: loginResult.user
             }
           })
         );
