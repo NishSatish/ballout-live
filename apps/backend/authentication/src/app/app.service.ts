@@ -33,13 +33,16 @@ export class AppService {
       if (!isPwdMatch) {
         throw new UnauthorizedException('Invalid credentials')
       }
-      return this.jwtService.sign({
+      const token = this.jwtService.sign({
         user: user._id,
-        role: 'Regular' // @TODO: Separate Organization Login Will Give You A Valid Role
       },
         {
           secret: configuration().JWT_SECRET
         });
+      return {
+        token,
+        user
+      }
     } catch(e) {
       Logger.error(e);
       return e;

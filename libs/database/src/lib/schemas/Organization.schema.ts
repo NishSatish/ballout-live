@@ -30,6 +30,6 @@ export class Organization {
   creator: mongoose.Types.ObjectId | User;
 }
 
-export type OrganizationDocument = HydratedDocument<Organization>
+export type IOrganizationDocument = HydratedDocument<Organization>
 
 export const OrganizationSchema = SchemaFactory.createForClass(Organization);
