@@ -10,7 +10,10 @@ export const AuthStyles = StyleSheet.create({
     color: 'white',
     fontSize:25,
     marginTop:40,
-    marginBottom:20
+    marginBottom:20,
+    fontFamily: 'Gi',
+    textTransform: 'uppercase',
+    flexWrap: 'wrap'
   }
 
 });

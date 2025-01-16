@@ -1,5 +1,6 @@
 import { SafeAreaView, Text, View, TextInput } from 'react-native';
 import { InputBarStyles } from './InputBarStyle';
+import { useFonts } from 'expo-font';
 
 export const InputBar = ({
   placeholder,
