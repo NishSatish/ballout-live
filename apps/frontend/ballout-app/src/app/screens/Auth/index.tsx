@@ -5,6 +5,7 @@ import { AuthStyles } from './authStyles';
 import { InputBar } from '../../components/InputBar';
 import { useFonts } from 'expo-font';
 import { useFontInComponent } from '@ballout-app/src/app/hooks/useFontInComponent';
+import { CTA } from '@ballout-app/src/app/components/CTA';
 
 const DummyHandleInputChange = (inp: string) => {
   // console.log(inp);
@@ -45,6 +46,8 @@ export const Auth = () => {
           onChange={DummyHandleInputChange}
           password={true}
         />
+
+        <CTA text={'Signup'} uppercase={true} />
       </View>
     </View>
   );
