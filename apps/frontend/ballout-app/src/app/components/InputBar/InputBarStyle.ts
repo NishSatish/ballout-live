@@ -11,6 +11,7 @@ export const InputBarStyles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 4,
     elevation: 6,
+    color: 'white',
   },
 });
 

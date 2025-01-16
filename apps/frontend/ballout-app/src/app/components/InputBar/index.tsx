@@ -7,16 +7,18 @@ export const InputBar = ({
   onChange,
 }: {
   placeholder: string;
-  text: string;
+  text?: string;
   onChange: (input: string) => void;
 }) => {
   return (
     <SafeAreaView>
       <TextInput
+        autoCapitalize={'none'}
         style={InputBarStyles.InputBarContainer}
         placeholder={placeholder}
-        value={text} // Use the `text` prop here
-        onChangeText={onChange} // Pass the `onChange` function to `onChangeText`
+        value={text}
+        onChangeText={onChange}
+        placeholderTextColor={'rgba(255,255,255, 0.3)'}
       />
     </SafeAreaView>
   );
