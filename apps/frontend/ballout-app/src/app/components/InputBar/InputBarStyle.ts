@@ -12,7 +12,8 @@ export const InputBarStyles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 6,
     color: 'white',
-    fontFamily: 'Gi'
+    fontFamily: 'Orbitron',
+    letterSpacing: 1
   },
 });
 

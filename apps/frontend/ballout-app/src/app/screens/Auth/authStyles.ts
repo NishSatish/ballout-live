@@ -11,9 +11,12 @@ export const AuthStyles = StyleSheet.create({
     fontSize:25,
     marginTop:40,
     marginBottom:20,
-    fontFamily: 'Gi',
+    fontFamily: 'Orbitron',
     textTransform: 'uppercase',
-    flexWrap: 'wrap'
+    textAlign: 'center',
+    marginLeft: 10,
+    marginRight: 10,
+    fontWeight: 800,
   }
 
 });

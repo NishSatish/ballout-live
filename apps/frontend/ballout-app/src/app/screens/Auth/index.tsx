@@ -19,15 +19,17 @@ export const Auth = () => {
   return (
     <View style={[GlobalStyles.screenBG]}>
       <Navbar />
+      <Text style={[AuthStyles.signupHeader]}>Create A User Account</Text>
       <View style={[AuthStyles.inputContainer]}>
-        <Text style={[AuthStyles.signupHeader]}>Create A User Account</Text>
         <InputBar
           placeholder="FIRST NAME"
           onChange={DummyHandleInputChange}
+          autoCapitalize={'words'}
         />
         <InputBar
           placeholder="LAST NAME"
           onChange={DummyHandleInputChange}
+          autoCapitalize={'words'}
         />
         <InputBar
           placeholder="EMAIL"
@@ -36,10 +38,12 @@ export const Auth = () => {
         <InputBar
           placeholder="PASSWORD"
           onChange={DummyHandleInputChange}
+          password={true}
         />
         <InputBar
           placeholder="CONFIRM PASSWORD"
           onChange={DummyHandleInputChange}
+          password={true}
         />
       </View>
     </View>

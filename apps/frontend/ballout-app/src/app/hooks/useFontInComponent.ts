@@ -8,7 +8,6 @@ export const useFontInComponent = (
   fonts.forEach(font => {
     fontArgs[font] = fontMaps[font]
   })
-  console.log(fontArgs);
   const [loadedFonts, error] = useFonts(
     fontArgs
   );
