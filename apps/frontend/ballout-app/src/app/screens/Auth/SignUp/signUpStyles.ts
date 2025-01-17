@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from 'react-native';
 
-export const AuthStyles = StyleSheet.create({
+export const SignUpStyles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'column',
     alignItems: 'center',
