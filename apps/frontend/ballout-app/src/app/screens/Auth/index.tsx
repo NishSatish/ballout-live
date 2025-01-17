@@ -3,41 +3,50 @@ import { GlobalStyles } from '../../globalStyles';
 import { Navbar } from '../../components/Navbar';
 import { AuthStyles } from './authStyles';
 import { InputBar } from '../../components/InputBar';
-const DummyHandleInputChange = ({ inp }: { inp: string }) => {
-  console.log(inp);
+import { useFontInComponent } from '../../hooks/useFontInComponent';
+import { CTA } from '../../components/CTA/index';
+
+const DummyHandleInputChange = (inp: string) => {
+  // console.log(inp);
 };
 
 export const Auth = () => {
+  const fontLoaded = useFontInComponent(['Orbitron']);
+  if (!fontLoaded) {
+    return <Text>Font loading</Text>
+  }
+
   return (
     <View style={[GlobalStyles.screenBG]}>
       <Navbar />
+      <Text style={[AuthStyles.signupHeader]}>Create A User Account</Text>
       <View style={[AuthStyles.inputContainer]}>
-        <Text style={{ color: 'white',fontSize:25, marginTop:40, marginBottom:20}}>Create A User Account</Text>
         <InputBar
           placeholder="FIRST NAME"
-          text=""
           onChange={DummyHandleInputChange}
+          autoCapitalize={'words'}
         />
         <InputBar
           placeholder="LAST NAME"
-          text=""
           onChange={DummyHandleInputChange}
+          autoCapitalize={'words'}
         />
         <InputBar
           placeholder="EMAIL"
-          text=""
           onChange={DummyHandleInputChange}
         />
         <InputBar
           placeholder="PASSWORD"
-          text=""
           onChange={DummyHandleInputChange}
+          password={true}
         />
         <InputBar
           placeholder="CONFIRM PASSWORD"
-          text=""
           onChange={DummyHandleInputChange}
+          password={true}
         />
+
+        <CTA text={'Signup'} uppercase={true} />
       </View>
     </View>
   );
