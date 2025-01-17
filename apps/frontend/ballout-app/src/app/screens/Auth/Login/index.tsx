@@ -6,11 +6,9 @@ import { InputBar } from '@ballout-app/src/app/components/InputBar/index';
 import { useFontInComponent } from '@ballout-app/src/app/hooks/useFontInComponent';
 import { CTA } from '@ballout-app/src/app/components/CTA/index';
 import { useState } from 'react';
-
-interface ILogin {
-  email: string;
-  password: string;
-}
+import { ILogin } from '@ballout-app/src/app/models';
+import { loginHelper } from '@ballout-app/src/app/utils/auth/login';
+import { useDispatch } from 'react-redux';
 
 export const Login = () => {
   const fontLoaded = useFontInComponent(['Orbitron']);
@@ -18,11 +16,21 @@ export const Login = () => {
     email: '',
     password: '',
   });
+  const dispatch = useDispatch();
 
-  const handleLogin = () => {
-    console.log('Login button clicked!', localLoginDetails);
-    // Perform authentication logic here
+  const handleLogin = async () => {
+    try {
+      console.log("clicked")
+      const result = await loginHelper(localLoginDetails, dispatch);
+      if (result) {
+        console.log('Login successful:', result);
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
+
+
   function handleLoginInputChange(field: keyof ILogin, value: string) {
     setLocalLoginDetails((prev) => ({
       ...prev,
