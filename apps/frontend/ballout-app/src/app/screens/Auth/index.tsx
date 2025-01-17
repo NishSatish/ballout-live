@@ -3,9 +3,8 @@ import { GlobalStyles } from '../../globalStyles';
 import { Navbar } from '../../components/Navbar';
 import { AuthStyles } from './authStyles';
 import { InputBar } from '../../components/InputBar';
-import { useFonts } from 'expo-font';
-import { useFontInComponent } from '@ballout-app/src/app/hooks/useFontInComponent';
-import { CTA } from '@ballout-app/src/app/components/CTA';
+import { useFontInComponent } from '../../hooks/useFontInComponent';
+import { CTA } from '../../components/CTA/index';
 
 const DummyHandleInputChange = (inp: string) => {
   // console.log(inp);

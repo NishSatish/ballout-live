@@ -17,7 +17,9 @@ export const CTAStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     position: 'relative',
+    borderRadius: 8
   },
+
   arrow: {
     height: '60%',
     width: 25,
