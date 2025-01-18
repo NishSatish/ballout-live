@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dispatch, UnknownAction } from '@reduxjs/toolkit';
 import { HttpWrapper } from '../http.util';
 import { IUser } from '../../models/user.interface';
-import { ILogin } from '@ballout-app/src/app/models/';
+import { ILogin } from '../../models/login.interface';
 
 export const loginHelper = async (
   loginDetails: ILogin,
@@ -22,6 +22,8 @@ export const loginHelper = async (
       }
     );
 
+    console.log(loginResult);
+
     await AsyncStorage.setItem('session_token', loginResult.token);
 
     dispatch(
@@ -33,6 +35,6 @@ export const loginHelper = async (
     );
     return loginResult;
   } catch (e) {
-    console.error('ERROR', e);
+    console.error('LOGIN HANDLER ERROR', e);
   }
 };
