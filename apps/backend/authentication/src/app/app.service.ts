@@ -13,15 +13,15 @@ export class AppService {
   }
 
   async saveUserToDB(user: CreateUserDto) {
-    const hashPwd = await bcrypt.hash(user.password, 3);
-    user = { ...user, password: hashPwd };
     try {
+      const hashPwd = await bcrypt.hash(user.password, 3);
+      user = { ...user, password: hashPwd };
       const createdUser = await new this.userModel(user).save()
       Logger.log('User successfully signed up', createdUser)
       return createdUser;
     } catch (e) {
       Logger.error(e)
-      return e;
+      return { error: e };
     }
   }
 
@@ -45,7 +45,7 @@ export class AppService {
       }
     } catch(e) {
       Logger.error(e);
-      return e;
+      return { error: e };
     }
 
   }
