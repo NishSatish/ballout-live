@@ -3,6 +3,7 @@ import { OrganizationsService } from './organizations.service';
 import { CreateOrgDto } from '@ballout/libs/commons/src/lib/dto/create-org.dto';
 import { CheckPermissions } from '../utils/decorators/permission.decorator';
 import { OrganizationAction } from '@ballout/role-policies';
+import { SwaggerDoc } from '../utils/decorators/swagger.decorator';
 
 @Controller('organizations')
 export class OrganizationsController {
@@ -10,6 +11,12 @@ export class OrganizationsController {
   }
 
   @Post('create')
+  @SwaggerDoc({
+    summary: 'creates a new organization',
+    responses: [
+      { status: 201, description: 'success' }
+    ]
+  })
   @CheckPermissions({resource: 'Organization', action: OrganizationAction.CreateOrganization})
   createOrgHandler(@Req() req: any) {
     console.log(req.user);
