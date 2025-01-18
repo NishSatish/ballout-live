@@ -1,6 +1,6 @@
 import configuration from '@config';
 
-const SERVER_URL = configuration().SERVER_URL;
+const EXPO_PUBLIC_SERVER_URL = process.env.EXPO_PUBLIC_SERVER_URL;
 const defaultHeaders = {
   'Content-Type': 'application/json',
 };
@@ -8,7 +8,7 @@ const defaultHeaders = {
 export class HttpWrapper {
   static async get<T>(url: string, headerOptions?: object) {
     try {
-      const res = await fetch(SERVER_URL + url, {
+      const res = await fetch(EXPO_PUBLIC_SERVER_URL + url, {
         headers: {
           ...headerOptions,
           ...defaultHeaders,
@@ -25,7 +25,8 @@ export class HttpWrapper {
 
   static async post<T>(url: string, body: object, headerOptions?: object) {
     try {
-      const res = await fetch(SERVER_URL + url, {
+      console.log(EXPO_PUBLIC_SERVER_URL + url);
+      const res = await fetch(EXPO_PUBLIC_SERVER_URL + url, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
