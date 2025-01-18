@@ -2,6 +2,7 @@ import { Injectable, InternalServerErrorException, Logger, UnauthorizedException
 import { ClientOptions, ClientProxy, ClientProxyFactory } from '@nestjs/microservices';
 import { CreateUserDto, MessagePatterns, MicroServiceTransports } from '@ballout/libs/commons/src';
 import { firstValueFrom, map } from 'rxjs';
+import { MsvcCommunicator } from '../utils/msvcCommunicator';
 
 @Injectable()
 export class AuthenticationService {
@@ -16,15 +17,15 @@ export class AuthenticationService {
     //   return 'missing data';
     // }
     try {
-      return await firstValueFrom(this.authenticationClient
-        .send(MessagePatterns.authentication.createUser, userData)
-        .pipe(
-          map(signupResult => {
+      return await MsvcCommunicator
+        .configure(this.authenticationClient, MessagePatterns.authentication.createUser)
+        .send(userData,
+          signupResult => {
             if (!signupResult || signupResult.error) return { error: 'signup error' };
 
             return { message: 'success' };
-          })
-        ));
+          }
+        );
     } catch(e) {
       Logger.error(e);
       throw new InternalServerErrorException(e);
@@ -36,17 +37,29 @@ export class AuthenticationService {
       throw new UnauthorizedException('invalid credentials');
     }
     try {
-      return await firstValueFrom(this.authenticationClient
-        .send(MessagePatterns.authentication.loginUser, creds)
-        .pipe(
-          map(loginResult => {
+      // return await firstValueFrom(this.authenticationClient
+      //   .send(MessagePatterns.authentication.loginUser, creds)
+      //   .pipe(
+      //     map(loginResult => {
+      //       if (!loginResult || loginResult.error) return { error: 'login error' };
+      //       return {
+      //         token: loginResult.token,
+      //         user: loginResult.user
+      //       }
+      //     })
+      //   ));
+
+      return await MsvcCommunicator
+        .configure(this.authenticationClient, MessagePatterns.authentication.loginUser)
+        .send(creds,
+          (loginResult) => {
             if (!loginResult || loginResult.error) return { error: 'login error' };
             return {
               token: loginResult.token,
               user: loginResult.user
             }
-          })
-        ));
+          }
+        );
     } catch(e) {
       Logger.error(e);
       throw new InternalServerErrorException(e);
