@@ -9,6 +9,10 @@ import { useState } from 'react';
 import { ILogin } from '../../../models/login.interface';
 import { loginHelper } from '../../../utils/auth/login';
 import { useDispatch } from 'react-redux';
+import {
+  isValidEmail,
+  isValidPassword,
+} from '@ballout-app/src/app/utils/auth/validations';
 
 export const Login = () => {
   const fontLoaded = useFontInComponent(['Orbitron']);
@@ -18,10 +22,15 @@ export const Login = () => {
   });
   const dispatch = useDispatch();
 
-  const handleLogin = async () => {
-    const {email, password} = localLoginDetails;
-    if ((email.length == 0) || (password.length == 0)) {
-      console.error('Empty credentials');
+  const handleLogin = async (localLoginDetails: ILogin) => {
+    const { email, password } = localLoginDetails;
+
+    if (!isValidEmail(email)) {
+      console.error('Invalid email');
+      return;
+    }
+    if (!isValidPassword(password)) {
+      console.error('Invalid Password');
       return;
     }
     try {
@@ -33,7 +42,6 @@ export const Login = () => {
       console.error('Login failed:', error);
     }
   };
-
 
   function handleLoginInputChange(field: keyof ILogin, value: string) {
     setLocalLoginDetails((prev) => ({
@@ -62,7 +70,11 @@ export const Login = () => {
           autoCapitalize={'none'}
           password={true}
         />
-        <CTA text={'Login'} uppercase={true} onPress={handleLogin} />
+        <CTA
+          text={'Login'}
+          uppercase={true}
+          onPress={() => handleLogin(localLoginDetails)}
+        />
       </View>
     </View>
   );
