@@ -49,6 +49,7 @@
         "targetName": "test"
       },
       "exclude": [
+        "apps/backend/**/*",
         "apps/backend/gateway/src/app/apps/backend/authentication-e2e/**/*",
         "apps/backend/authentication-e2e/**/*",
         "apps/backend/users-e2e/**/*",

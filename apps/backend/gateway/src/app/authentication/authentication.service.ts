@@ -1,7 +1,7 @@
-import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
 import { ClientOptions, ClientProxy, ClientProxyFactory } from '@nestjs/microservices';
 import { CreateUserDto, MessagePatterns, MicroServiceTransports } from '@ballout/libs/commons/src';
-import { map } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 
 @Injectable()
 export class AuthenticationService {
@@ -11,39 +11,45 @@ export class AuthenticationService {
     this.authenticationClient = ClientProxyFactory.create(MicroServiceTransports.authenticationTransport.nats as ClientOptions)
   }
 
-  createUser(userData: CreateUserDto) {
-    if (Object.keys(userData).some(userInfo => userInfo == null)) {
-      return 'missing data';
-    }
+  async createUser(userData: CreateUserDto): Promise<Record<any, any>> {
+    // if (Object.keys(userData).some(userInfo => userInfo == null)) {
+    //   return 'missing data';
+    // }
     try {
-      const res = this.authenticationClient.send(MessagePatterns.authentication.createUser, userData)
-      Logger.log(res);
-      return res;
+      return await firstValueFrom(this.authenticationClient
+        .send(MessagePatterns.authentication.createUser, userData)
+        .pipe(
+          map(signupResult => {
+            if (!signupResult || signupResult.error) return { error: 'signup error' };
+
+            return { message: 'success' };
+          })
+        ));
     } catch(e) {
       Logger.error(e);
-      return e;
+      throw new InternalServerErrorException(e);
     }
   }
 
-  login(creds: { email: string, password: string }) {
+  async login(creds: { email: string, password: string }): Promise<Record<any, any>> {
     if (!creds.email ||  !creds.password) {
       throw new UnauthorizedException('invalid credentials');
     }
     try {
-      return this.authenticationClient
+      return await firstValueFrom(this.authenticationClient
         .send(MessagePatterns.authentication.loginUser, creds)
         .pipe(
           map(loginResult => {
-            if (!loginResult) return {error: 'error'};
+            if (!loginResult || loginResult.error) return { error: 'login error' };
             return {
               token: loginResult.token,
               user: loginResult.user
             }
           })
-        );
+        ));
     } catch(e) {
       Logger.error(e);
-      throw new UnauthorizedException(e);
+      throw new InternalServerErrorException(e);
     }
   }
 }
