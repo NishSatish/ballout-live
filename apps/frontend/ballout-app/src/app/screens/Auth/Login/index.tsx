@@ -1,13 +1,13 @@
 import { Text, View } from 'react-native';
-import { GlobalStyles } from '@ballout-app/src/app/globalStyles';
-import { Navbar } from '@ballout-app/src/app/components/Navbar/index';
-import { LoginStyles } from '@ballout-app/src/app/screens/Auth/Login/loginStyles';
-import { InputBar } from '@ballout-app/src/app/components/InputBar/index';
-import { useFontInComponent } from '@ballout-app/src/app/hooks/useFontInComponent';
-import { CTA } from '@ballout-app/src/app/components/CTA/index';
+import { GlobalStyles } from '../../../globalStyles';
+import { Navbar } from '../../../components/Navbar/index';
+import { LoginStyles } from './loginStyles';
+import { InputBar } from '../../../components/InputBar/index';
+import { useFontInComponent } from '../../../hooks/useFontInComponent';
+import { CTA } from '../../../components/CTA/index';
 import { useState } from 'react';
-import { ILogin } from '@ballout-app/src/app/models';
-import { loginHelper } from '@ballout-app/src/app/utils/auth/login';
+import { ILogin } from '../../../models/login.interface';
+import { loginHelper } from '../../../utils/auth/login';
 import { useDispatch } from 'react-redux';
 
 export const Login = () => {
@@ -19,8 +19,12 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
+    const {email, password} = localLoginDetails;
+    if ((email.length == 0) || (password.length == 0)) {
+      console.error('Empty credentials');
+      return;
+    }
     try {
-      console.log("clicked")
       const result = await loginHelper(localLoginDetails, dispatch);
       if (result) {
         console.log('Login successful:', result);

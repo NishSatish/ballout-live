@@ -1,4 +1,6 @@
-const SERVER_URL = 'http://192.168.86.65:3000/api/';
+import configuration from '@config';
+
+const SERVER_URL = configuration().SERVER_URL;
 const defaultHeaders = {
   'Content-Type': 'application/json',
 };
@@ -23,8 +25,6 @@ export class HttpWrapper {
 
   static async post<T>(url: string, body: object, headerOptions?: object) {
     try {
-      console.log(SERVER_URL + url);
-      console.log('in body', body);
       const res = await fetch(SERVER_URL + url, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -33,7 +33,6 @@ export class HttpWrapper {
           ...defaultHeaders,
         },
       });
-
       return (await res.json()) as Promise<T>;
     } catch (e) {
       console.error('Error in POST util', e);
