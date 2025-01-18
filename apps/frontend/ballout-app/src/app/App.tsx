@@ -7,6 +7,8 @@ import { SignUp } from '@ballout-app/src/app/screens/Auth/SignUp';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { OpacityScreen } from '@ballout-app/src/app/components/OpacityScreen/OpacityScreen';
 import { Login } from '@ballout-app/src/app/screens/Auth/Login';
+import { NotifierWrapper } from 'react-native-notifier';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export const App = () => {
   const Stack = createNativeStackNavigator();
@@ -15,12 +17,16 @@ export const App = () => {
   return (
     <Provider store={store}>
       <PaperProvider>
-        <OpacityScreen />
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Login" component={Login} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <GestureHandlerRootView>
+          <NotifierWrapper>
+            <OpacityScreen />
+            <NavigationContainer>
+              <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Login" component={Login} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </NotifierWrapper>
+        </GestureHandlerRootView>
       </PaperProvider>
     </Provider>
   );

@@ -13,6 +13,7 @@ import {
   isValidEmail,
   isValidPassword,
 } from '@ballout-app/src/app/utils/auth/validations';
+import { Notifier, Easing, NotifierComponents } from 'react-native-notifier';
 
 export const Login = () => {
   const fontLoaded = useFontInComponent(['Orbitron']);
@@ -27,10 +28,39 @@ export const Login = () => {
 
     if (!isValidEmail(email)) {
       console.error('Invalid email');
+      Notifier.showNotification({
+        title: 'Invalid Email',
+        description: 'Please Enter a valid email address',
+        duration: 3000,
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+        showAnimationDuration: 800,
+        showEasing: Easing.bounce,
+        onHidden: () => console.log('Hidden'),
+        onPress: () => console.log('Press'),
+        hideOnPress: false,
+      });
       return;
     }
     if (!isValidPassword(password)) {
       console.error('Invalid Password');
+      Notifier.showNotification({
+        title: 'Invalid Password',
+        description:
+          'Password must be at least 8 characters long and contain a number, a special character, and an uppercase letter.',
+        duration: 300,
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+        showAnimationDuration: 800,
+        showEasing: Easing.bounce,
+        onHidden: () => console.log('Hidden'),
+        onPress: () => console.log('Press'),
+        hideOnPress: false,
+      });
       return;
     }
     try {
