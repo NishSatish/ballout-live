@@ -11,29 +11,40 @@ export const loginHelper = async (
 ) => {
   try {
     console.log(loginDetails);
-    const loginResult = await HttpWrapper.post<{ token: string; user: IUser }>(
-      'auth/login',
-      {
-        email: loginDetails.email,
-        password: loginDetails.password,
+    const { status, data } = await HttpWrapper.post<{
+      token: string;
+      user: IUser;
+    }>('auth/login', {
+      email: loginDetails.email,
+      password: loginDetails.password,
 
-        // email: 'ney@mar.com',
-        // password: 'Neymar@1234',
-      }
-    );
+      // email: 'ney@mar.com',
+      // password: 'Neymar@1234',
+    });
 
-    console.log(loginResult);
+    console.log('STATUS: ', status);
+    console.log('DATA: ', data);
 
-    await AsyncStorage.setItem('session_token', loginResult.token);
+    if (status === 401) {
+      console.log('invalid creds');
+      throw new Error('401 STATUS CODE');
+    }
+
+    if (status === 500) {
+      console.log('server error');
+      throw new Error('500 STATUS CODE');
+    }
+
+    await AsyncStorage.setItem('session_token', data.token);
 
     dispatch(
       userActions.loginUser({
-        firstName: loginResult.user.firstName,
-        lastName: loginResult.user.lastName,
-        email: loginResult.user.email,
+        firstName: data.user.firstName,
+        lastName: data.user.lastName,
+        email: data.user.email,
       })
     );
-    return loginResult;
+    return data;
   } catch (e) {
     console.error('LOGIN HANDLER ERROR', e);
   }

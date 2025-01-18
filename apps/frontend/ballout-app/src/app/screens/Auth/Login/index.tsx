@@ -50,7 +50,7 @@ export const Login = () => {
         title: 'Invalid Password',
         description:
           'Password must be at least 8 characters long and contain a number, a special character, and an uppercase letter.',
-        duration: 300,
+        duration: 3000,
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',

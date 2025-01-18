@@ -34,7 +34,14 @@ export class HttpWrapper {
           ...defaultHeaders,
         },
       });
-      return (await res.json()) as Promise<T>;
+      // return (await res.json()) as Promise<T>;
+      // Parse JSON response
+      const data = await res.json();
+
+      return {
+        data, // The response data
+        status: res.status, // HTTP status code
+      };
     } catch (e) {
       console.error('Error in POST util', e);
       throw new Error(e);
