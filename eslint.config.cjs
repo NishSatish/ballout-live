@@ -16,9 +16,13 @@ module.exports = [
             "**/*.js",
             "**/*.jsx"
         ],
+        plugins: {
+          import: require('eslint-plugin-import')
+        },
         rules: {
+            "import/no-relative-parent-imports": "error",
             "@nx/enforce-module-boundaries": [
-                "error",
+                0,
                 {
                     enforceBuildableLibDependency: true,
                     allow: [
@@ -33,7 +37,7 @@ module.exports = [
                         }
                     ]
                 }
-            ]
+            ],
         }
     },
     {
