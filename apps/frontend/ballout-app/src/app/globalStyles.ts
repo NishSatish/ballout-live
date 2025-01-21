@@ -5,8 +5,8 @@ export const appBG = '#2c2c2c';
 export const navBg = '#373737';
 
 export const GlobalStyles = StyleSheet.create({
-  screenBG: {
-    backgroundColor: appBG,
-    height: '100%',
-  },
+	screenBG: {
+		backgroundColor: appBG,
+		height: '100%',
+	},
 });

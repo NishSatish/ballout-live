@@ -1,26 +1,26 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2020", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@ballout-app/*": ["apps/frontend/ballout-app/*"],
-      "@ballout/database": ["libs/database/src/index.ts"],
-      "@ballout/libs/*": ["libs/*"],
-      "@ballout/role-policies": ["libs/role-policies/src/index.ts"],
-      "@config": ["config/configuration.ts"]
-    }
-  },
-  "exclude": ["node_modules", "tmp"]
+	"compileOnSave": false,
+	"compilerOptions": {
+		"rootDir": ".",
+		"sourceMap": true,
+		"declaration": false,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"importHelpers": true,
+		"target": "es2015",
+		"module": "esnext",
+		"lib": ["es2020", "dom"],
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"baseUrl": ".",
+		"paths": {
+			"@ballout-app/*": ["apps/frontend/ballout-app/*"],
+			"@ballout/database": ["libs/database/src/index.ts"],
+			"@ballout/libs/*": ["libs/*"],
+			"@ballout/role-policies": ["libs/role-policies/src/index.ts"],
+			"@config": ["config/configuration.ts"]
+		}
+	},
+	"exclude": ["node_modules", "tmp"]
 }

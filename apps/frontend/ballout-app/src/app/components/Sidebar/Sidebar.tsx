@@ -4,18 +4,14 @@ import { useSelector } from 'react-redux';
 import { Portal } from 'react-native-paper';
 
 export const Sidebar = () => {
-  const sidebarStore = useSelector((state: any) => state.sidebar.open)
-  return (
-    sidebarStore
-      ?
-    <View style={styles.sidebarContainer}>
-      <SafeAreaView>
-        {/*Opacity layer to dim the background*/}
+	const sidebarStore = useSelector((state: any) => state.sidebar.open);
+	return sidebarStore ? (
+		<View style={styles.sidebarContainer}>
+			<SafeAreaView>
+				{/*Opacity layer to dim the background*/}
 
-        <Text>fr</Text>
-      </SafeAreaView>
-    </View>
-      :
-    null
-  );
-}
+				<Text>fr</Text>
+			</SafeAreaView>
+		</View>
+	) : null;
+};

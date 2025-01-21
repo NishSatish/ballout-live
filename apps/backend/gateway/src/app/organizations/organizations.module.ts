@@ -10,7 +10,7 @@ import { RolePoliciesModule } from '@ballout/role-policies';
 import { JwtService } from '@nestjs/jwt';
 
 @Module({
-  controllers: [OrganizationsController],
-  providers: [OrganizationsService, RolePoliciesService, JwtService],
+	controllers: [OrganizationsController],
+	providers: [OrganizationsService, RolePoliciesService, JwtService],
 })
 export class OrganizationsModule {}

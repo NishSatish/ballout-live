@@ -4,9 +4,9 @@ import { organizationSlice } from '@ballout-app/src/app/store/organization';
 import { sidebarSlice } from '@ballout-app/src/app/store/sidebar';
 
 export const store = configureStore({
-  reducer: {
-    user: userSlice.reducer,
-    organization: organizationSlice.reducer,
-    sidebar: sidebarSlice.reducer
-  }
+	reducer: {
+		user: userSlice.reducer,
+		organization: organizationSlice.reducer,
+		sidebar: sidebarSlice.reducer,
+	},
 });
