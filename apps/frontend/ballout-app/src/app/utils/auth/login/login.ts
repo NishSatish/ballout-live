@@ -1,9 +1,9 @@
-import { userActions, UserStore } from '../../store/user';
+import { userActions, UserStore } from '../../../store/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dispatch, UnknownAction } from '@reduxjs/toolkit';
-import { HttpWrapper } from '../http.util';
-import { IUser } from '../../models/user.interface';
-import { ILogin } from '../../models/login.interface';
+import { HttpWrapper } from '../../http.util';
+import { IUser } from '../../../models/user.interface';
+import { ILogin } from '../../../models/login.interface';
 
 export const loginHelper = async (
   loginDetails: ILogin,
