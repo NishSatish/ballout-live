@@ -1,5 +1,5 @@
 export interface IOrganization {
-  name: string
-  address: string
-  type: 'edu' | 'club'
+	name: string;
+	address: string;
+	type: 'edu' | 'club';
 }

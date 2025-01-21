@@ -11,46 +11,46 @@ import { LoginStyles } from './loginStyles';
 import { handleLogin } from '../../../utils/auth/login/loginValidator';
 
 export const Login = () => {
-  const fontLoaded = useFontInComponent(['Orbitron']);
-  const [localLoginDetails, setLocalLoginDetails] = useState<ILogin>({
-    email: '',
-    password: '',
-  });
-  const dispatch = useDispatch();
+	const fontLoaded = useFontInComponent(['Orbitron']);
+	const [localLoginDetails, setLocalLoginDetails] = useState<ILogin>({
+		email: '',
+		password: '',
+	});
+	const dispatch = useDispatch();
 
-  function handleLoginInputChange(field: keyof ILogin, value: string) {
-    setLocalLoginDetails((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  }
+	function handleLoginInputChange(field: keyof ILogin, value: string) {
+		setLocalLoginDetails((prev) => ({
+			...prev,
+			[field]: value,
+		}));
+	}
 
-  if (!fontLoaded) {
-    return <Text>Font loading</Text>;
-  }
+	if (!fontLoaded) {
+		return <Text>Font loading</Text>;
+	}
 
-  return (
-    <View style={[GlobalStyles.screenBG]}>
-      <Navbar />
-      <Text style={[LoginStyles.loginHeader]}>Login</Text>
-      <View style={[LoginStyles.inputContainer]}>
-        <InputBar
-          placeholder="EMAIL"
-          onChange={(value) => handleLoginInputChange('email', value)}
-          autoCapitalize={'none'}
-        />
-        <InputBar
-          placeholder="PASSWORD"
-          onChange={(value) => handleLoginInputChange('password', value)}
-          autoCapitalize={'none'}
-          password={true}
-        />
-        <CTA
-          text={'Login'}
-          uppercase={true}
-          onPress={() => handleLogin(localLoginDetails,dispatch)}
-        />
-      </View>
-    </View>
-  );
+	return (
+		<View style={[GlobalStyles.screenBG]}>
+			<Navbar />
+			<Text style={[LoginStyles.loginHeader]}>Login</Text>
+			<View style={[LoginStyles.inputContainer]}>
+				<InputBar
+					placeholder="EMAIL"
+					onChange={(value) => handleLoginInputChange('email', value)}
+					autoCapitalize={'none'}
+				/>
+				<InputBar
+					placeholder="PASSWORD"
+					onChange={(value) => handleLoginInputChange('password', value)}
+					autoCapitalize={'none'}
+					password={true}
+				/>
+				<CTA
+					text={'Login'}
+					uppercase={true}
+					onPress={() => handleLogin(localLoginDetails, dispatch)}
+				/>
+			</View>
+		</View>
+	);
 };

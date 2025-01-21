@@ -5,6 +5,4 @@ import { User } from '@ballout/libs/database/src/lib/schemas/User.schema';
 import { Model } from 'mongoose';
 
 @Injectable()
-export class AppService {
-
-}
+export class AppService {}

@@ -11,25 +11,25 @@ import { NotifierWrapper } from 'react-native-notifier';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export const App = () => {
-  const Stack = createNativeStackNavigator();
+	const Stack = createNativeStackNavigator();
 
-  // Commented for testing :  <Stack.Screen name="SignUp" component={SignUp} />
-  return (
-    <Provider store={store}>
-      <PaperProvider>
-        <GestureHandlerRootView>
-          <NotifierWrapper>
-            <OpacityScreen />
-            <NavigationContainer>
-              <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Login" component={Login} />
-              </Stack.Navigator>
-            </NavigationContainer>
-          </NotifierWrapper>
-        </GestureHandlerRootView>
-      </PaperProvider>
-    </Provider>
-  );
+	// Commented for testing :  <Stack.Screen name="SignUp" component={SignUp} />
+	return (
+		<Provider store={store}>
+			<PaperProvider>
+				<GestureHandlerRootView>
+					<NotifierWrapper>
+						<OpacityScreen />
+						<NavigationContainer>
+							<Stack.Navigator screenOptions={{ headerShown: false }}>
+								<Stack.Screen name="Login" component={Login} />
+							</Stack.Navigator>
+						</NavigationContainer>
+					</NotifierWrapper>
+				</GestureHandlerRootView>
+			</PaperProvider>
+		</Provider>
+	);
 };
 
 export default App;

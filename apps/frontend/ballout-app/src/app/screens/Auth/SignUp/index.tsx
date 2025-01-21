@@ -7,44 +7,44 @@ import { useFontInComponent } from '@ballout-app/src/app/hooks/useFontInComponen
 import { CTA } from '@ballout-app/src/app/components/CTA/index';
 
 const DummyHandleInputChange = (inp: string) => {
-  // console.log(inp);
+	// console.log(inp);
 };
 
 export const SignUp = () => {
-  const fontLoaded = useFontInComponent(['Orbitron']);
-  if (!fontLoaded) {
-    return <Text>Font loading</Text>;
-  }
+	const fontLoaded = useFontInComponent(['Orbitron']);
+	if (!fontLoaded) {
+		return <Text>Font loading</Text>;
+	}
 
-  return (
-    <View style={[GlobalStyles.screenBG]}>
-      <Navbar />
-      <Text style={[SignUpStyles.signupHeader]}>Create A User Account</Text>
-      <View style={[SignUpStyles.inputContainer]}>
-        <InputBar
-          placeholder="FIRST NAME"
-          onChange={DummyHandleInputChange}
-          autoCapitalize={'words'}
-        />
-        <InputBar
-          placeholder="LAST NAME"
-          onChange={DummyHandleInputChange}
-          autoCapitalize={'words'}
-        />
-        <InputBar placeholder="EMAIL" onChange={DummyHandleInputChange} />
-        <InputBar
-          placeholder="PASSWORD"
-          onChange={DummyHandleInputChange}
-          password={true}
-        />
-        <InputBar
-          placeholder="CONFIRM PASSWORD"
-          onChange={DummyHandleInputChange}
-          password={true}
-        />
+	return (
+		<View style={[GlobalStyles.screenBG]}>
+			<Navbar />
+			<Text style={[SignUpStyles.signupHeader]}>Create A User Account</Text>
+			<View style={[SignUpStyles.inputContainer]}>
+				<InputBar
+					placeholder="FIRST NAME"
+					onChange={DummyHandleInputChange}
+					autoCapitalize={'words'}
+				/>
+				<InputBar
+					placeholder="LAST NAME"
+					onChange={DummyHandleInputChange}
+					autoCapitalize={'words'}
+				/>
+				<InputBar placeholder="EMAIL" onChange={DummyHandleInputChange} />
+				<InputBar
+					placeholder="PASSWORD"
+					onChange={DummyHandleInputChange}
+					password={true}
+				/>
+				<InputBar
+					placeholder="CONFIRM PASSWORD"
+					onChange={DummyHandleInputChange}
+					password={true}
+				/>
 
-        <CTA text={'Signup'} uppercase={true} />
-      </View>
-    </View>
-  );
+				<CTA text={'Signup'} uppercase={true} />
+			</View>
+		</View>
+	);
 };

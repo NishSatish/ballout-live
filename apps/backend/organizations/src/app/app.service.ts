@@ -8,47 +8,43 @@ import { transactionHandler } from '@ballout/libs/database/src/';
 
 @Injectable()
 export class AppService {
-  constructor(
-    @InjectModel(Organization.name) private orgModel: Model<Organization>,
-    @InjectModel(User.name) private userModel: Model<User>,
-    @InjectConnection() private connection: Connection
-  ) {
-  }
+	constructor(
+		@InjectModel(Organization.name) private orgModel: Model<Organization>,
+		@InjectModel(User.name) private userModel: Model<User>,
+		@InjectConnection() private connection: Connection
+	) {}
 
-  async saveOrganization(orgData: { org: CreateOrgDto, user: string }) {
-    return transactionHandler(
-      this.connection,
-      async () => {
-        const createdOrg = await new this.orgModel({
-          name: orgData.org.name,
-          type: orgData.org.type,
-          address: orgData.org.address,
-          creator: orgData.user
-        }).save();
+	async saveOrganization(orgData: { org: CreateOrgDto; user: string }) {
+		return transactionHandler(this.connection, async () => {
+			const createdOrg = await new this.orgModel({
+				name: orgData.org.name,
+				type: orgData.org.type,
+				address: orgData.org.address,
+				creator: orgData.user,
+			}).save();
 
-        const updatedUser = await this.userModel.findByIdAndUpdate({
-          _id: orgData.user
-        }, {
-          $push: {
-            organizations: {
-              _id: createdOrg._id,
-              role: 'OrganizationAdmin'
-            }
-          }
-        })
+			const updatedUser = await this.userModel.findByIdAndUpdate(
+				{
+					_id: orgData.user,
+				},
+				{
+					$push: {
+						organizations: {
+							_id: createdOrg._id,
+							role: 'OrganizationAdmin',
+						},
+					},
+				}
+			);
 
-        Logger.log('Org created', createdOrg);
-        Logger.log('User updated', updatedUser);
+			Logger.log('Org created', createdOrg);
+			Logger.log('User updated', updatedUser);
 
-        return { createdOrg, creator: updatedUser._id };
-      }
-    );
+			return { createdOrg, creator: updatedUser._id };
+		});
+	}
 
-  }
-
-  async getOrganizations() {
-    return this.orgModel.find({}).populate('creator');
-  }
-
-
+	async getOrganizations() {
+		return this.orgModel.find({}).populate('creator');
+	}
 }

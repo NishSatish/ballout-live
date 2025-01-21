@@ -11,22 +11,22 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [
-    RolePoliciesModule,
-    AuthenticationModule,
-    OrganizationsModule,
-    ConfigModule.forRoot({
-      isGlobal: true
-    })
-  ],
-  controllers: [AppController],
-  providers: [
-    AppService,
-    ConfigService,
-    JwtService,
-    RolePoliciesService,
-    AuthGuard,
-    PermissionGuard,
-  ],
+	imports: [
+		RolePoliciesModule,
+		AuthenticationModule,
+		OrganizationsModule,
+		ConfigModule.forRoot({
+			isGlobal: true,
+		}),
+	],
+	controllers: [AppController],
+	providers: [
+		AppService,
+		ConfigService,
+		JwtService,
+		RolePoliciesService,
+		AuthGuard,
+		PermissionGuard,
+	],
 })
 export class AppModule {}

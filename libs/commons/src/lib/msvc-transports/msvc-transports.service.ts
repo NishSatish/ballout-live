@@ -4,7 +4,7 @@ import { ClientOptions } from '@nestjs/microservices';
 
 @Injectable()
 export class MsvcTransportsService {
-  getAuthenticationServiceTransports() {
-    return MicroServiceTransports.authenticationTransport as ClientOptions;
-  }
+	getAuthenticationServiceTransports() {
+		return MicroServiceTransports.authenticationTransport as ClientOptions;
+	}
 }
