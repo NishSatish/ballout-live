@@ -31,9 +31,30 @@ export const handleLogin = async (
 		return;
 	}
 	try {
-		const result = await loginHelper(localLoginDetails, dispatch);
-		if (result) {
-			console.log('Login successful:', result);
+		const status = await loginHelper(localLoginDetails, dispatch);
+
+		// TODO: change this to 200 after status code updates in backend
+		if (status === 201) {
+			console.log('Login successful:', status);
+			return;
+		}
+
+		// User not found is not an exception, so nothing thrown
+		if (status === 401) {
+			console.log('Invalid credentials', status);
+			alertNotificationBuilder({
+				title: 'Invalid Credentials',
+				description: '',
+			});
+		}
+
+		if (status === 500) {
+			console.log('Server Error', status);
+			alertNotificationBuilder({
+				title: 'Server Error',
+				description: '',
+			});
+			throw new Error('500 Server Error');
 		}
 	} catch (error) {
 		console.error('Login failed:', error);
