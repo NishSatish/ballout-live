@@ -1,6 +1,6 @@
 import { alertNotificationBuilder } from '@ballout-app/src/app/components/AlertNotifier';
 import { ILogin } from '@ballout-app/src/app/models';
-import { loginHelper } from '@ballout-app/src/app/utils/auth/login/login';
+import { loginHelper } from '@ballout-app/src/app/utils/auth/login/loginHttpWrapper';
 import {
 	isValidEmail,
 	isValidPassword,
@@ -38,4 +38,15 @@ export const handleLogin = async (
 	} catch (error) {
 		console.error('Login failed:', error);
 	}
+};
+
+export const handleLoginInputChange = (
+	field: keyof ILogin,
+	value: string,
+	setLocalLoginDetails: React.Dispatch<React.SetStateAction<ILogin>>
+) => {
+	setLocalLoginDetails((prev) => ({
+		...prev,
+		[field]: value,
+	}));
 };
