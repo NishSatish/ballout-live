@@ -7,8 +7,11 @@ import { Navbar } from '../../../components/Navbar/index';
 import { GlobalStyles } from '../../../globalStyles';
 import { useFontInComponent } from '../../../hooks/useFontInComponent';
 import { ILogin } from '../../../models/login.interface';
+import {
+	handleLogin,
+	handleLoginInputChange,
+} from '../../../utils/auth/login/loginValidator';
 import { LoginStyles } from './loginStyles';
-import { handleLogin } from '../../../utils/auth/login/loginValidator';
 
 export const Login = () => {
 	const fontLoaded = useFontInComponent(['Orbitron']);
@@ -17,13 +20,6 @@ export const Login = () => {
 		password: '',
 	});
 	const dispatch = useDispatch();
-
-	function handleLoginInputChange(field: keyof ILogin, value: string) {
-		setLocalLoginDetails((prev) => ({
-			...prev,
-			[field]: value,
-		}));
-	}
 
 	if (!fontLoaded) {
 		return <Text>Font loading</Text>;
@@ -36,12 +32,16 @@ export const Login = () => {
 			<View style={[LoginStyles.inputContainer]}>
 				<InputBar
 					placeholder="EMAIL"
-					onChange={(value) => handleLoginInputChange('email', value)}
+					onChange={(value) =>
+						handleLoginInputChange('email', value, setLocalLoginDetails)
+					}
 					autoCapitalize={'none'}
 				/>
 				<InputBar
 					placeholder="PASSWORD"
-					onChange={(value) => handleLoginInputChange('password', value)}
+					onChange={(value) =>
+						handleLoginInputChange('password', value, setLocalLoginDetails)
+					}
 					autoCapitalize={'none'}
 					password={true}
 				/>
