@@ -1,9 +1,9 @@
-import { userActions, UserStore } from '../../../store/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dispatch, UnknownAction } from '@reduxjs/toolkit';
-import { HttpWrapper } from '../../http.util';
-import { IUser } from '../../../models/user.interface';
 import { ILogin } from '../../../models/login.interface';
+import { IUser } from '../../../models/user.interface';
+import { userActions } from '../../../store/user';
+import { HttpWrapper } from '../../http.util';
 
 export const loginHelper = async (
 	loginDetails: ILogin,
@@ -25,26 +25,19 @@ export const loginHelper = async (
 		console.log('STATUS: ', status);
 		console.log('DATA: ', data);
 
-		if (status === 401) {
-			console.log('invalid creds');
-			throw new Error('401 STATUS CODE');
+		//TODO: change to 200 after backend fix
+		if (status === 201) {
+			await AsyncStorage.setItem('session_token', data.token);
+			dispatch(
+				userActions.loginUser({
+					firstName: data.user.firstName,
+					lastName: data.user.lastName,
+					email: data.user.email,
+				})
+			);
 		}
 
-		if (status === 500) {
-			console.log('server error');
-			throw new Error('500 STATUS CODE');
-		}
-
-		await AsyncStorage.setItem('session_token', data.token);
-
-		dispatch(
-			userActions.loginUser({
-				firstName: data.user.firstName,
-				lastName: data.user.lastName,
-				email: data.user.email,
-			})
-		);
-		return data;
+		return status;
 	} catch (e) {
 		console.error('LOGIN HANDLER ERROR', e);
 	}
