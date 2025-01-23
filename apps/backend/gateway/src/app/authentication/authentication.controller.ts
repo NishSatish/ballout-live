@@ -28,8 +28,9 @@ export class AuthenticationController {
 			password: string;
 		};
 		const res = await this.authService.login(credentials);
-		if (res.error)
-			throw new HttpException('login failed', HttpStatus.UNAUTHORIZED);
+		if (res.error) {
+			throw new HttpException(res.error.response, HttpStatus.UNAUTHORIZED);
+		}
 		return res;
 	}
 
@@ -46,10 +47,7 @@ export class AuthenticationController {
 			req.body as unknown as CreateUserDto
 		);
 		if (res.error)
-			throw new HttpException(
-				'signup failed',
-				HttpStatus.INTERNAL_SERVER_ERROR
-			);
+			throw new HttpException(res.error.response.message, res.error.statusCode);
 		return res;
 	}
 }

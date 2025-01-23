@@ -3,3 +3,4 @@ export * from './lib/msvc-transports/msvc-transports.module';
 export * from './lib/msvc-transports/transports';
 export * from './lib/message-patterns';
 export * from './lib/dto';
+export * from './lib/status-codes';

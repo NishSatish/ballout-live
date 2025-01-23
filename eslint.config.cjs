@@ -1,4 +1,5 @@
 const nx = require('@nx/eslint-plugin');
+const stylistic = require('@stylistic/eslint-plugin-ts')
 
 module.exports = [
 	...nx.configs['flat/base'],
@@ -11,6 +12,7 @@ module.exports = [
 		files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
 		plugins: {
 			import: require('eslint-plugin-import'),
+      stylistic: stylistic
 		},
 		rules: {
 			'import/no-relative-parent-imports': 'error',
