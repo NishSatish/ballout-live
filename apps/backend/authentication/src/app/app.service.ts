@@ -15,10 +15,15 @@ export class AppService {
 	) {}
 
 	async saveUserToDB(user: CreateUserDto) {
+		const { email, password, firstName, lastName } = user;
 		try {
-			const hashPwd = await bcrypt.hash(user.password, 3);
-			user = { ...user, password: hashPwd };
-			const createdUser = await new this.userModel(user).save();
+			const hashPwd = await bcrypt.hash(password, 3);
+			const createdUser = await new this.userModel({
+				email,
+				firstName,
+				lastName,
+				password: hashPwd,
+			}).save();
 			Logger.log('User successfully signed up', createdUser);
 			return createdUser;
 		} catch (e) {
@@ -30,7 +35,8 @@ export class AppService {
 	async loginUser(data: { email: string; password: string }) {
 		try {
 			const user = await this.userModel.findOne({ email: data.email });
-			if (!user) throw new Error('User not found g');
+			if (!user) throw new UnauthorizedException('Invalid credentials');
+
 			const isPwdMatch = await bcrypt.compare(data.password, user.password);
 			if (!isPwdMatch) {
 				throw new UnauthorizedException('Invalid credentials');

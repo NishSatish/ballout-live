@@ -1,4 +1,5 @@
 import {
+	HttpException,
 	Injectable,
 	InternalServerErrorException,
 	Logger,
@@ -10,6 +11,7 @@ import {
 	ClientProxyFactory,
 } from '@nestjs/microservices';
 import {
+	AuthStatusCodes,
 	CreateUserDto,
 	MessagePatterns,
 	MicroServiceTransports,
@@ -28,9 +30,17 @@ export class AuthenticationService {
 	}
 
 	async createUser(userData: CreateUserDto): Promise<Record<any, any>> {
-		// if (Object.keys(userData).some(userInfo => userInfo == null)) {
-		//   return 'missing data';
-		// }
+		const { email, password, firstName, lastName } = userData;
+		if (
+			[email, password, firstName, lastName].some(
+				(cred) => cred == null || cred.length == 0
+			)
+		)
+			throw new HttpException(
+				'missing credentials',
+				AuthStatusCodes.signup.credentialsMissing
+			);
+
 		try {
 			return await MsvcCommunicator.configure(
 				this.authenticationClient,
@@ -52,26 +62,20 @@ export class AuthenticationService {
 		password: string;
 	}): Promise<Record<any, any>> {
 		if (!creds.email || !creds.password) {
-			throw new UnauthorizedException('invalid credentials');
+			throw new HttpException(
+				'missing credentials',
+				AuthStatusCodes.login.credentialsMissing
+			);
 		}
-		try {
-			// return await firstValueFrom(this.authenticationClient
-			//   .send(MessagePatterns.authentication.loginUser, creds)
-			//   .pipe(
-			//     map(loginResult => {
-			//       if (!loginResult || loginResult.error) return { error: 'login error' };
-			//       return {
-			//         token: loginResult.token,
-			//         user: loginResult.user
-			//       }
-			//     })
-			//   ));
 
+		try {
 			return await MsvcCommunicator.configure(
 				this.authenticationClient,
 				MessagePatterns.authentication.loginUser
 			).send(creds, (loginResult) => {
-				if (!loginResult || loginResult.error) return { error: 'login error' };
+				if (!loginResult || loginResult.error)
+					return { error: loginResult.error as Error };
+
 				return {
 					token: loginResult.token,
 					user: loginResult.user,
