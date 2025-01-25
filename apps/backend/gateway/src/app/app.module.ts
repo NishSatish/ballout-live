@@ -9,6 +9,7 @@ import { AuthGuard } from './utils/guards/auth.guard';
 import { PermissionGuard } from './utils/guards/permission.guard';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
 
 @Module({
 	imports: [
@@ -18,6 +19,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 		ConfigModule.forRoot({
 			isGlobal: true,
 		}),
+		UsersModule,
 	],
 	controllers: [AppController],
 	providers: [
