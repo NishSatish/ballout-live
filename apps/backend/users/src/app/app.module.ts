@@ -3,7 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import configuration from '@config';
-import { DatabaseModule } from '@ballout/database';
+import {
+	DatabaseModule,
+	Organization,
+	OrganizationSchema,
+} from '@ballout/database';
 import {
 	User,
 	UserSchema,
