@@ -16,7 +16,6 @@ import {
 	MessagePatterns,
 	MicroServiceTransports,
 } from '@ballout/libs/commons/src';
-import { firstValueFrom, map } from 'rxjs';
 import { MsvcCommunicator } from '../utils/msvcCommunicator';
 
 @Injectable()
@@ -79,6 +78,7 @@ export class AuthenticationService {
 				return {
 					token: loginResult.token,
 					user: loginResult.user,
+					organizations: loginResult.organizations,
 				};
 			});
 		} catch (e) {
