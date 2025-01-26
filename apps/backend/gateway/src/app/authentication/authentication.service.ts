@@ -78,7 +78,6 @@ export class AuthenticationService {
 				return {
 					token: loginResult.token,
 					user: loginResult.user,
-					organizations: loginResult.organizations,
 				};
 			});
 		} catch (e) {

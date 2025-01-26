@@ -30,7 +30,7 @@ export class AppService {
 				{
 					$push: {
 						organizations: {
-							_id: createdOrg._id,
+							org: createdOrg._id,
 							role: 'OrganizationAdmin',
 						},
 					},
