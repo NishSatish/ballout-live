@@ -22,6 +22,7 @@ export class User {
 			{
 				org: { type: mongoose.Types.ObjectId, ref: 'Organization' },
 				role: { type: String, enum: ROLES },
+				_id: false,
 			},
 		],
 		default: [],

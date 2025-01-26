@@ -38,10 +38,5 @@ export class RolePoliciesService {
 			Organization: [],
 			Match: [MatchAction.OperateMatch],
 		},
-
-		Regular: {
-			Organization: [OrganizationAction.CreateOrganization],
-			Match: [],
-		},
 	};
 }

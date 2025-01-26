@@ -47,24 +47,11 @@ export class AppService {
 
 	async loginUser(data: { email: string; password: string }) {
 		return transactionHandler(this.connection, async () => {
-			// @TODO: Exclude Organizations nested within User for now,
-			// make separate query for Orgs
-			const user = await this.userModel.findOne(
-				{ email: data.email },
-				{ organizations: 0 }
-			);
-			Logger.log(user);
+			const user = await this.userModel
+				.findOne({ email: data.email })
+				.populate('organizations.org', 'name')
+				.exec();
 			if (!user) throw new UnauthorizedException('Invalid credentials');
-
-			// @TODO: Find a way to return this data from the userModel itself
-			const organizations = await this.organizationModel.find(
-				{ creator: user._id },
-				{ name: 1 }
-			);
-			Logger.log(organizations);
-			// @TODO: Not all users are expected to be part of an org
-			if (!organizations)
-				throw new InternalServerErrorException('could not fetch user data');
 
 			const isPwdMatch = await bcrypt.compare(data.password, user.password);
 			if (!isPwdMatch) {
@@ -78,10 +65,11 @@ export class AppService {
 					secret: configuration().JWT_SECRET,
 				}
 			);
+
+			user['password'] = undefined;
 			return {
 				token,
 				user,
-				organizations,
 			};
 		});
 	}
