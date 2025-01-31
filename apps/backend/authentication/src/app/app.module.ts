@@ -19,12 +19,12 @@ import {
 		DatabaseModule,
 		MongooseModule.forFeature([
 			{
-				name: User.name,
-				schema: UserSchema,
-			},
-			{
 				name: Organization.name,
 				schema: OrganizationSchema,
+			},
+			{
+				name: User.name,
+				schema: UserSchema,
 			},
 		]),
 		JwtModule.register({

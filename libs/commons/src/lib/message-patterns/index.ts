@@ -7,6 +7,7 @@ export const MessagePatterns = {
 
 	users: {
 		getUsers: 'USERS_GET_USERS',
+		me: 'USERS_GET_ME',
 	},
 
 	organizations: {

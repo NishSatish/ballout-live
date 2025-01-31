@@ -16,7 +16,7 @@ export class Organization {
 
 	@Prop({
 		type: {
-			user: { type: mongoose.Types.ObjectId, ref: User.name },
+			user: { type: mongoose.Types.ObjectId, ref: 'User' },
 			role: { type: String, enum: ROLES },
 		},
 	})
@@ -25,7 +25,7 @@ export class Organization {
 		role: string;
 	}[];
 
-	@Prop({ type: mongoose.Types.ObjectId, ref: User.name, index: true })
+	@Prop({ type: mongoose.Types.ObjectId, ref: 'User', index: true })
 	creator: mongoose.Types.ObjectId | User;
 }
 

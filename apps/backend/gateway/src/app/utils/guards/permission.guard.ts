@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { RolePoliciesService } from '@ballout/libs/role-policies/src/lib/role-policies.service';
 import {
 	Action,
+	OrganizationAction,
 	Resource,
 } from '@ballout/libs/role-policies/src/lib/actions.interface';
 
@@ -28,8 +29,10 @@ export class PermissionGuard implements CanActivate {
 			'Resource',
 			context.getHandler()
 		);
+		// Allow anyone to create an organization
+		if (action == OrganizationAction.CreateOrganization) return true;
+
 		const role = context.switchToHttp().getRequest().userRole!;
-		console.log(action, resource, role);
 
 		if (!this.rolePolicyService.canPerformAction(role, action, resource)) {
 			Logger.error('No permission to perform ' + action + ' for this user');

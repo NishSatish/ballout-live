@@ -16,13 +16,14 @@ export class AuthGuard implements CanActivate {
 		const request = context.switchToHttp().getRequest();
 		const [type, token] = request.headers.authorization?.split(' ') || [];
 		try {
+			if (type.toLowerCase() !== 'bearer') throw new Error('invalid header');
+
 			const payload: { user: string; role: string } =
 				await this.jwtService.verifyAsync(token, {
 					secret: configuration().JWT_SECRET,
 				});
 
 			request['user'] = payload.user;
-			request['userRole'] = payload.role;
 		} catch (e) {
 			Logger.error(e);
 			throw new UnauthorizedException(e);

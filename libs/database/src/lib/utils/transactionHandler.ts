@@ -1,8 +1,7 @@
 import { Connection } from 'mongoose';
 import { Logger } from '@nestjs/common';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-export const transactionHandler = async (
+export const transactionHandler = async <T>(
 	connection: Connection,
 	dbOperation: Function
 ) => {
@@ -12,11 +11,11 @@ export const transactionHandler = async (
 		const operationResult = await dbOperation();
 		await transactionSession.commitTransaction();
 
-		return operationResult;
+		return operationResult as T;
 	} catch (e) {
 		await transactionSession.abortTransaction();
 		Logger.error(e);
-		return e;
+		return { error: e };
 	} finally {
 		await transactionSession.endSession();
 	}
