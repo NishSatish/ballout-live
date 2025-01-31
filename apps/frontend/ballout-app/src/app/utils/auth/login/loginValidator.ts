@@ -6,6 +6,7 @@ import {
 	isValidPassword,
 } from '@ballout-app/src/app/utils/auth/validations';
 import { Dispatch, UnknownAction } from '@reduxjs/toolkit';
+import { AuthStatusCodes } from '@ballout/libs/commons/src';
 
 export const handleLogin = async (
 	localLoginDetails: ILogin,
@@ -33,14 +34,13 @@ export const handleLogin = async (
 	try {
 		const status = await loginHelper(localLoginDetails, dispatch);
 
-		// TODO: change this to 200 after status code updates in backend
-		if (status === 201) {
+		if (status === AuthStatusCodes.login.success) {
 			console.log('Login successful:', status);
 			return;
 		}
 
 		// User not found is not an exception, so nothing thrown
-		if (status === 401) {
+		if (status === AuthStatusCodes.login.credentialsIncorrect) {
 			console.log('Invalid credentials', status);
 			alertNotificationBuilder({
 				title: 'Invalid Credentials',
@@ -48,6 +48,7 @@ export const handleLogin = async (
 			});
 		}
 
+		// Leave for unforeseen errors
 		if (status === 500) {
 			console.log('Server Error', status);
 			alertNotificationBuilder({

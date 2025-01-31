@@ -4,6 +4,7 @@ import { ILogin } from '../../../models/login.interface';
 import { IUser } from '../../../models/user.interface';
 import { userActions } from '../../../store/user';
 import { HttpWrapper } from '../../http.util';
+import { AuthStatusCodes } from '@ballout/libs/commons/src';
 
 export const loginHelper = async (
 	loginDetails: ILogin,
@@ -17,16 +18,13 @@ export const loginHelper = async (
 		}>('auth/login', {
 			email: loginDetails.email,
 			password: loginDetails.password,
-
-			// email: 'ney@mar.com',
-			// password: 'Neymar@1234',
 		});
 
 		console.log('STATUS: ', status);
 		console.log('DATA: ', data);
 
 		//TODO: change to 200 after backend fix
-		if (status === 201) {
+		if (status === AuthStatusCodes.login.success) {
 			await AsyncStorage.setItem('session_token', data.token);
 			dispatch(
 				userActions.loginUser({

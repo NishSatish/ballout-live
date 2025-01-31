@@ -2,10 +2,11 @@ import { alertNotificationBuilder } from '@ballout-app/src/app/components/AlertN
 import { ISignUp } from '@ballout-app/src/app/models/signup.interface';
 import { isEmpty, isValidEmail, isValidPassword } from '../validations';
 import { signUpHelper } from './signUpHttpWrapper';
+import { AuthStatusCodes } from '@ballout/libs/commons/src';
+import React from 'react';
 
 export const handleSignUp = async (localSignUpDetails: ISignUp) => {
 	const { firstName, lastName, email, password } = localSignUpDetails;
-	console.log('enootu', isEmpty(firstName));
 	if (isEmpty(firstName)) {
 		console.error('first name empty');
 		alertNotificationBuilder({
@@ -52,9 +53,18 @@ export const handleSignUp = async (localSignUpDetails: ISignUp) => {
 	try {
 		const status = await signUpHelper(localSignUpDetails);
 
-		if (status === 201) {
-			console.log('SignUp successful:', status);
+		if (status === AuthStatusCodes.signup.success) {
+			console.log('Signup successful:', status);
 			return;
+		}
+
+		if (status === AuthStatusCodes.signup.credentialsInvalid) {
+			console.log('Invalid/Existing Creds', status);
+			alertNotificationBuilder({
+				title: 'Account exists, please use another email',
+				description: '',
+			});
+			throw new Error('500 Server Error');
 		}
 
 		if (status === 500) {
@@ -64,8 +74,6 @@ export const handleSignUp = async (localSignUpDetails: ISignUp) => {
 				description: '',
 			});
 			throw new Error('500 Server Error');
-		} else {
-			console.log('sign up error status code:', status);
 		}
 	} catch (error) {
 		console.error('Login failed:', error);
