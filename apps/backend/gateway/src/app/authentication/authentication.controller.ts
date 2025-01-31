@@ -54,7 +54,11 @@ export class AuthenticationController {
 			req.body as unknown as CreateUserDto
 		);
 		if (res.error)
-			throw new HttpException(res.error.response.message, res.error.statusCode);
+			throw new HttpException(
+				res.error.response,
+				AuthStatusCodes.signup.credentialsInvalid
+			);
+
 		return res;
 	}
 }

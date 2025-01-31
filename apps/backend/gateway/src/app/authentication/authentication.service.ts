@@ -45,6 +45,7 @@ export class AuthenticationService {
 				this.authenticationClient,
 				MessagePatterns.authentication.createUser
 			).send(userData, (signupResult) => {
+				console.log(signupResult);
 				if (!signupResult || signupResult.error)
 					return { error: 'signup error' };
 
